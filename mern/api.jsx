@@ -1,35 +1,40 @@
 import { useState, useEffect } from "react";
 
 function App() {
-  const [data, setData] = useState([]);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    getData();
+    getUsers();
   }, []);
 
-  const getData = async () => {
-    let res = await fetch("https://dummy.restapiexample.com/api/v1/employees");
+  const getUsers = async () => {
+    let res = await fetch("https://jsonplaceholder.typicode.com/users");
     let d = await res.json();
-    setData(d.data);
+    setUsers(d);
   };
 
   return (
-    <table style={{width: '100vw', textAlign:'center'}}>
-      <thead>
-        <tr>
-          {data[0] &&
-            Object.keys(data[0]).map(h => <th>{h}</th>)}
-        </tr>
-      </thead>
+    <div>
+      <h2>User Data</h2>
 
-      <tbody>
-        {data.map(row => (
+      <table border="1">
+        <thead>
           <tr>
-            {Object.values(row).map(val => <td>{val}</td>)}
+            <th>Name</th>
+            <th>Email</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+
+        <tbody>
+          {users.map(user => (
+            <tr key={user.id}>
+              <td>{user.name}</td>
+              <td>{user.email}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
