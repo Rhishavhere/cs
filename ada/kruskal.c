@@ -5,7 +5,7 @@
 int parent[20] = {0};
 
 int find(int x){
-  while(parent[x]){
+  while(parent[x]!=x){
     x=parent[x];
   }
   return x;
@@ -26,6 +26,9 @@ int main(){
       }
     }
   }
+
+  for(int i = 0; i < n; i++)
+    parent[i] = i;
 
   printf("Edges in MST: \n");
   while(edges < n-1){
